@@ -1,0 +1,6 @@
+{
+  "concentration-5e": {
+    "CONCENTRATION_WARNING": "Casting {spell} will disrupt your current concentration.",
+    "CURRENTLY_CONCENTRATING": "You are currently concentrating on {concentratingOn}."
+  }
+}
