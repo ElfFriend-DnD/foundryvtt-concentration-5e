@@ -44,6 +44,11 @@ This module has an intentionally limited scope aimed at helping GMs run the game
 - automatically remove concentration effects in any situation
 - clean up any other effects from a spell if the concentration effect for that spell is removed
 
+
+https://user-images.githubusercontent.com/7644614/156941709-75442b9c-29c7-415e-973d-376d607bfbf3.mp4
+
+
+
 ## Compatibility
 
 Requires More Hooks 5e
