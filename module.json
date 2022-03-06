@@ -2,7 +2,7 @@
   "name": "concentration-5e",
   "title": "Concentration Reminders DnD5e",
   "description": "A module which allows a GM to interact with effects on rolled items from chat.",
-  "version": "1.0.0",
+  "version": "0.0.3",
   "author": "Andrew Krigline",
   "authors": [
     {
@@ -16,9 +16,6 @@
   "system": [ "dnd5e" ],
   "esmodules": [
     "./scripts/concentration-5e.js"
-  ],
-  "styles": [
-    "./styles/concentration-5e.css"
   ],
   "languages": [
     {
@@ -35,7 +32,7 @@
       "name": "lib-wrapper"
     }
   ],
-  "minimumCoreVersion": "0.8.9",
+  "minimumCoreVersion": "9",
   "compatibleCoreVersion": "9",
   "url": "https://github.com/ElfFriend-DnD/foundryvtt-concentration-5e",
   "bugs": "https://github.com/ElfFriend-DnD/foundryvtt-concentration-5e/issues",
