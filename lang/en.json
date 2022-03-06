@@ -1,6 +1,8 @@
 {
   "concentration-5e": {
-    "CONCENTRATION_WARNING": "Casting {spell} will disrupt your current concentration.",
-    "CURRENTLY_CONCENTRATING": "You are currently concentrating on {concentratingOn}."
+    "CONCENTRATION_WARNING": "Casting {spell} will disrupt your concentration.",
+    "CURRENTLY_CONCENTRATING": "You are currently concentrating on {concentratingOn}.",
+    "CON_CHECK": "Concentration Check",
+    "CHECK_PROMPT": "{name} needs to make a Concentration Check for {spell} after taking {damage} damage."
   }
 }
