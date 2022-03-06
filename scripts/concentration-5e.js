@@ -59,7 +59,10 @@ Hooks.on('Item5e.roll', (item, _roll, _options, actor) => {
 });
 
 Hooks.on('renderAbilityUseDialog', (app, [html]) => {
-  Concentration5e.log("rendering");
+  Concentration5e.log("rendering", {
+    item: app.item,
+    effects: app.item.parent.effects
+  });
 
   // if the item isn't a spell or isn't a concentration spell
   if (app.item.type !== 'spell' || !app.item.data.data.components?.concentration) {
@@ -82,6 +85,13 @@ Hooks.on('renderAbilityUseDialog', (app, [html]) => {
 
   if (!concentrationEffects.length) {
     Concentration5e.log("not concentrating")
+    return;
+  }
+
+  if (concentrationEffects.filter(
+    (effect) => effect.data.origin === app.item.uuid
+  ).length) {
+    Concentration5e.log("recasting a spell")
     return;
   }
 
