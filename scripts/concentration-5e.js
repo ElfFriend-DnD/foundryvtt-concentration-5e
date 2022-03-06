@@ -53,6 +53,17 @@ Hooks.on('Item5e.roll', (item, _roll, _options, actor) => {
     return;
   }
 
+  const concentrationEffects = actor.effects.filter((effect) =>
+    !effect.isSuppressed && effect.data.flags?.core?.statusId === 'concentrating'
+  );
+
+  if (concentrationEffects.filter(
+    (effect) => effect.data.origin === item.uuid
+  ).length) {
+    Concentration5e.log("recasting a spell")
+    return;
+  }
+
   const fakeConcentrationEffectData = Concentration5e.getFakeConcentrationEffect(item);
 
   actor.createEmbeddedDocuments('ActiveEffect', [fakeConcentrationEffectData]);
@@ -88,6 +99,7 @@ Hooks.on('renderAbilityUseDialog', (app, [html]) => {
     return;
   }
 
+  // stop if this new spell is already being concentrated on
   if (concentrationEffects.filter(
     (effect) => effect.data.origin === app.item.uuid
   ).length) {
@@ -97,18 +109,15 @@ Hooks.on('renderAbilityUseDialog', (app, [html]) => {
 
   const concentratingOn = concentrationEffects.map((effect) => effect.sourceName).filterJoin(', ');
 
-  const node = document.createRange().createContextualFragment(`
+  const element = `
   <p class="notification info">
     ${game.i18n.format('concentration-5e.CONCENTRATION_WARNING', { spell: app.item.name })}
     <br>
     <small>${game.i18n.format('concentration-5e.CURRENTLY_CONCENTRATING', { concentratingOn })}</small>
   </p>
-  `);
+  `
 
-  const notificationNode = html.querySelector('.notification');
-  const formNode = html.querySelector('form');
-
-  formNode.insertBefore(node, notificationNode);
+  html.querySelector('.notes')?.insertAdjacentHTML('afterend', element);
   app.setPosition({ height: 'auto' });
 });
 
