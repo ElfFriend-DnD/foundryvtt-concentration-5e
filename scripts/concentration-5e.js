@@ -123,6 +123,7 @@ Hooks.on('renderAbilityUseDialog', (app, [html]) => {
 
 
 Hooks.on('Actor5e.applyDamage', async (actor, totalDamageTaken) => {
+  debugger;
   // abort if user healed or took no damage
   if (Math.sign(totalDamageTaken) > -1) {
     return;
@@ -169,8 +170,8 @@ Hooks.on('Actor5e.applyDamage', async (actor, totalDamageTaken) => {
 
     Concentration5e.log(fakeConcentrationItem)
     
-    fakeConcentrationItem.roll({
-      configureDialog: false,
+    fakeConcentrationItem.displayCard({
+      createMessage: true,
       rollMode: CONST.DICE_ROLL_MODES.PUBLIC
     });
   });
