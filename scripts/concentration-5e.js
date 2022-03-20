@@ -1,7 +1,3 @@
-// import { Concentration5eCanvas } from "./classes/canvas.js";
-// import { Concentration5eChat } from "./classes/chat.js";
-// import { Concentration5eItem } from "./classes/item.js";
-
 export class Concentration5e {
   static MODULE_NAME = "concentration-5e";
   static MODULE_TITLE = "Concentration Reminders DnD5e";
@@ -33,27 +29,18 @@ export class Concentration5e {
 
 Hooks.on("ready", async () => {
   console.log(`${Concentration5e.MODULE_NAME} | Initializing ${Concentration5e.MODULE_TITLE}`);
-
-  // // initialize item hooks
-  // Concentration5eItem.init();
 });
 
 Hooks.once('devModeReady', ({ registerPackageDebugFlag }) => {
   registerPackageDebugFlag(Concentration5e.MODULE_NAME);
 });
 
-// // initialize chat hooks
-// Concentration5eChat.init();
-
-// // initialize canvas hooks
-// Concentration5eCanvas.init();
-
-Hooks.on('Item5e.roll', (item, _roll, _options, actor) => {
-  if (!item.type === 'spell' || !item.data.data.components?.concentration) {
+Hooks.on('Item5e.roll', (item) => {
+  if (!item.type === 'spell' || !item.data.data.components?.concentration || !item.parent) {
     return;
   }
 
-  const concentrationEffects = actor.effects.filter((effect) =>
+  const concentrationEffects = item.parent.effects.filter((effect) =>
     !effect.isSuppressed && effect.data.flags?.core?.statusId === 'concentrating'
   );
 
@@ -66,7 +53,7 @@ Hooks.on('Item5e.roll', (item, _roll, _options, actor) => {
 
   const fakeConcentrationEffectData = Concentration5e.getFakeConcentrationEffect(item);
 
-  actor.createEmbeddedDocuments('ActiveEffect', [fakeConcentrationEffectData]);
+  item.parent.createEmbeddedDocuments('ActiveEffect', [fakeConcentrationEffectData]);
 });
 
 Hooks.on('renderAbilityUseDialog', (app, [html]) => {
